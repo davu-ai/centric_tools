@@ -3,7 +3,7 @@ import asyncio
 import functools
 from typing import List
 from fastapi import Request, HTTPException
-from centric_tools.logger import CustomLogger 
+from centric_tools.logger import CustomLogger
 
 
 def check_permission(user_permissions: List[str], required_permission: List[str]):
