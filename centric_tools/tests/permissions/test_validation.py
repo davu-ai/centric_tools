@@ -6,9 +6,6 @@ from centric_tools.permission.decorators import check_permission, get_request_ob
 from centric_tools.permission.table import PermissionTable
 
 
-os.environ["PERMISSION_CHECK"] = "True"
-
-
 def test_check_permission_granted():
     user_permissions = ["can_edit", "can_view"]
     required_permissions = ["can_view"]  # User should have at least one

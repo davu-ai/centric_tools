@@ -11,7 +11,7 @@ def check_permission(user_permissions: List[str], required_permission: List[str]
     """
     Check if a user has the required permissions.
     """
-    if os.environ.get("PERMISSION_CHECK", "False").lower() == "false":
+    if os.environ.get("PERMISSION_CHECK", "").lower() == "false":
         return
     if not set(user_permissions).intersection(set(required_permission)):
         context = {
