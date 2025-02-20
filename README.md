@@ -26,6 +26,18 @@ from centric_tools.permission.table import PermissionTable
 async def protected_route():
     return {"message": "You have access"}
 ```
+### **2. Control Permission Check Using an Environment Variable**
+You can enable or disable permission checks by setting an environment variable:  
+
+```bash
+export PERMISSION_CHECK="False"
+```
+- To disable permission checks, explicitly set PERMISSION_CHECK to the string "False".
+
+- If the variable is not set or set to any other value (including "True"), permission checks will remain enabled for all endpoints decorated with validate_permission.
+
+
+
 
 
 ## Development
