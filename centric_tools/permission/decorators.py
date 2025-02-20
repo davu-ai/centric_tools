@@ -1,6 +1,7 @@
 import ast
 import asyncio
 import functools
+import os
 from typing import List
 from fastapi import Request, HTTPException
 from centric_tools.logger import CustomLogger
@@ -10,6 +11,8 @@ def check_permission(user_permissions: List[str], required_permission: List[str]
     """
     Check if a user has the required permissions.
     """
+    if os.environ.get("PERMISSION_CHECK", "False").lower() == "false":
+        return
     if not set(user_permissions).intersection(set(required_permission)):
         context = {
             "required_permission": required_permission,

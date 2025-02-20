@@ -27,6 +27,12 @@ async def protected_route():
     return {"message": "You have access"}
 ```
 
+### 2. Control Usage using an env variable
+```bash
+export PERMISSION_CHECK=True
+```
+
+
 
 ## Development
 
