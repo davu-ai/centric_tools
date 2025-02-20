@@ -1,9 +1,7 @@
-import os
 import pytest
 from fastapi import Request, HTTPException
 from unittest.mock import Mock
 from centric_tools.permission.decorators import check_permission, get_request_object
-from centric_tools.permission.table import PermissionTable
 
 
 def test_check_permission_granted():
