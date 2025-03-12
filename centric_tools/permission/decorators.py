@@ -36,12 +36,24 @@ def get_request_object(*args, **kwargs) -> Request:
     return request
 
 
-def get_user_permissions(request: Request) -> List[str]:
+def get_permission_from_headers(request: Request):
     headers = dict(request.headers)
     raw_permissions = headers.get("x-permissions")
     if not raw_permissions or raw_permissions == "None":
         raw_permissions = "[]"
     return ast.literal_eval(raw_permissions)
+
+
+def get_permission_from_state(request: Request):
+    user_info = getattr(request.state, "user_data", {})
+    return user_info.get("permissions", [])
+
+
+def get_user_permissions(request: Request) -> List[str]:
+    permissions = get_permission_from_headers(request)
+    if not permissions:
+        permissions = get_permission_from_state(request)
+    return permissions
 
 
 def validate_permission(required_permissions: List[str]):
