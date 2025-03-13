@@ -40,6 +40,10 @@ class AirflowClient(IDagClient):
             return None
 
     def delete_dag(self, dag_id: str) -> bool:
+        """
+        This only deletes the dag reference (Metadata, dag runs)
+        So we must also delete the dag file from the dag bag separately
+        """
         endpoint = f"/dags/{dag_id}"
         response = self._initiate_request(endpoint, method="DELETE")
 

@@ -17,11 +17,14 @@ class LocalDAGStorage(IDAGStorage):
         with open(file_path, "w") as file:
             file.write(content)
 
-    def delete(self, filename: str):
+    def delete(self, filename: str) -> bool:
         file_path = self.base_dir / f"{self._mount_path}/{filename}"
+        delete_success = False
         if os.path.exists(file_path):
             os.remove(file_path)
+            delete_success = True
             CustomLogger.info(f"DAG file {filename} deleted")
+        return delete_success
 
 
 class MountedDAGStorage(IDAGStorage):
@@ -35,8 +38,11 @@ class MountedDAGStorage(IDAGStorage):
         with open(file_path, "w") as file:
             file.write(content)
 
-    def delete(self, filename: str):
+    def delete(self, filename: str) -> bool:
         file_path = f"{self._mount_path}/{filename}"
+        delete_success = False
         if os.path.exists(file_path):
             os.remove(file_path)
+            delete_success = True
             CustomLogger.info(f"DAG file {filename} deleted")
+        return delete_success

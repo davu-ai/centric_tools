@@ -9,5 +9,5 @@ class IDAGStorage(ABC):
         pass
 
     @abstractmethod
-    def delete(self, filename: str):
+    def delete(self, filename: str) -> bool:
         pass
