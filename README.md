@@ -6,6 +6,7 @@ A collection of internal tools shared among all Centric Microservices.
 - **Logging**: Custom logger for structured logs.
 - **Permission Checking**: Utility functions to verify user permissions.
 - **Decorators**: Easily enforce permissions on API endpoints.
+-  **Dag task management**: Manage dag tasks
 
 ## Installation
 
