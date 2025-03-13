@@ -52,3 +52,14 @@ class AirflowClient(IDagClient):
         else:
             CustomLogger.info(f"DAG {dag_id} deleted with status {response.status_code}")
         return response.status_code == 204
+
+    def get_health(self) -> dict:
+        endpoint = "/health"
+        try:
+            response = self._initiate_request(endpoint)
+            status_code = response.status_code
+            response_data = response.json()
+        except Exception as e:
+            status_code = 500
+            response_data = {"error": str(e)}
+        return {"response_data": response_data, "status_code": status_code}

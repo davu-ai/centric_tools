@@ -7,3 +7,7 @@ class IDagClient(ABC):
     @abstractmethod
     def delete_dag(self, dag_id: str) -> bool:
         pass
+
+    @abstractmethod
+    def get_health(self):
+        pass
