@@ -49,7 +49,10 @@ git clone git@github.com:davu-ai/centric_tools.git
 cd centric_tools
 pip install -r requirements.txt
 ```
-
+### Run tests
+```bash
+pytest -vv
+```
 ## License
 This project is licensed under the MIT License.
 

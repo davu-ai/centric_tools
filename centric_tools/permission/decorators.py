@@ -11,7 +11,6 @@ def check_permission(user_permissions: List[str], required_permission: List[str]
     """
     Check if a user has the required permissions.
     """
-    return
     if os.environ.get("PERMISSION_CHECK", "").lower() == "false":
         return
     if not set(user_permissions).intersection(set(required_permission)):
@@ -19,7 +18,7 @@ def check_permission(user_permissions: List[str], required_permission: List[str]
             "required_permission": required_permission,
             "user_permissions": user_permissions,
         }
-        CustomLogger.info("Access to resource denied.", context=context)
+        CustomLogger.info("Access to resource denied..", context=context)
         raise HTTPException(
             detail="You are not allowed to access this resource", status_code=403
         )
@@ -51,8 +50,10 @@ def get_permission_from_state(request: Request):
 
 
 def get_user_permissions(request: Request) -> List[str]:
-    permissions = get_permission_from_headers(request)
-    if not permissions:
+    permission_store = os.environ.get("PERMISSION_STORE", "headers")
+    if permission_store == "headers":
+        permissions = get_permission_from_headers(request)
+    else:
         permissions = get_permission_from_state(request)
     return permissions
 
