@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 
 
 class IDagClient(ABC):
@@ -10,4 +11,8 @@ class IDagClient(ABC):
 
     @abstractmethod
     def get_health(self):
+        pass
+
+    @abstractmethod
+    def trigger_dag_run(self, dag_id: str, conf: Optional[dict] = None) -> bool:
         pass

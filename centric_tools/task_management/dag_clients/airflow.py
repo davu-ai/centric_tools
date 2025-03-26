@@ -1,5 +1,7 @@
 import base64
 import os
+from typing import Optional
+
 import requests
 
 from centric_tools import CustomLogger
@@ -67,3 +69,23 @@ class AirflowClient(IDagClient):
             status_code = 500
             response_data = {"error": str(e)}
         return {"response_data": response_data, "status_code": status_code}
+
+    def trigger_dag_run(self, dag_id: str, conf: Optional[dict] = None) -> bool:
+        """
+        Triggers a DAG run in Airflow.
+        :param dag_id: The ID of the DAG to trigger.
+        :param conf: Optional configuration dictionary to pass to the DAG run.
+        :return: True if the DAG run was successfully triggered, False otherwise.
+        """
+        endpoint = f"/dags/{dag_id}/dagRuns"
+        payload = {"conf": conf or {}}
+        response = self._initiate_request(endpoint, payload=payload, method="POST")
+
+        if response is None:
+            CustomLogger.info(f"Failed to trigger DAG {dag_id}")
+            return False
+        if response.status_code != 200:
+            CustomLogger.info(f"Failed to trigger DAG {dag_id}", context={"reason": str(response.json())})
+        else:
+            CustomLogger.info(f"DAG {dag_id} triggered successfully with status {response.status_code}")
+        return response.status_code == 200
